@@ -23,4 +23,56 @@
             (#{email},#{amount},#{uid})
     </insert>
 
+    <select id="selectPointList" parameterType="String" resultType="HashMap">
+        SELECT
+            email,amount,DATE_FORMAT(indate,'%Y-%m-%d %T') AS indate
+        FROM
+            payment
+        WHERE
+            email = #{email}
+    </select>
+
+    <select id="selectBuyList" parameterType="String" resultType="HashMap">
+        SELECT
+            name,amount,total,DATE_FORMAT(indate,'%Y-%m-%d %T') AS indate
+        FROM
+            buy
+        WHERE
+            email = #{email}
+    </select>
+
+    <insert id="insertBuyCoin" parameterType="HashMap">
+        INSERT INTO buy
+            (email,coinId,name,price,amount,total)
+        VALUES
+            (#{email},#{coinId},#{name},#{price},#{amount},#{total})
+    </insert>
+
+    <select id="selectCheckBalance" parameterType="String" resultType="HashMap">
+        SELECT
+            email,amount
+        FROM
+            payment
+        WHERE
+            email = #{email}
+    </select>
+
+    <select id="selectHadBalance" parameterType="String" resultType="HashMap">
+        SELECT
+            email,amount
+        FROM
+            payment
+        WHERE
+            email = #{email}
+    </select>
+
+    <select id="selectHavingBalance" parameterType="String" resultType="HashMap">
+        SELECT
+            a.email as email, b.email as email, a.amount as amount, b.total as total
+        FROM
+            payment a, buy b
+        WHERE
+            a.email = #{email}, b.email = #{email}
+    </select>
+
 </mapper>
