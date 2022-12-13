@@ -15,4 +15,8 @@ public class ContactService {
     public int insertSubscribe(HashMap<String,String> map) {
         return cr.insertSubscribe(map);
     }
+
+    public int insertContact(HashMap<String,String> map) {
+        return cr.insertContact(map);
+    }
 }

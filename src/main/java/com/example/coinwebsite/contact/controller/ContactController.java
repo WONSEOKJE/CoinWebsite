@@ -28,5 +28,11 @@ public class ContactController {
         return "redirect:/" + url;
     }
 
+    @PostMapping("/requestCall")
+    public String requestCall(@RequestParam HashMap<String, String> map) {
+        cs.insertContact(map);
+        return "redirect:/";
+    }
+
 
 }

@@ -18,4 +18,5 @@ public interface CoinWebsiteMapper {
     public  ArrayList<HashMap<String,Object>> selectHavingBalance(String email);
     public  int selectMoneyBalance(String email);
     public int insertSubscribe(HashMap<String,String> map);
+    public int insertContact(HashMap<String,String> map);
 }

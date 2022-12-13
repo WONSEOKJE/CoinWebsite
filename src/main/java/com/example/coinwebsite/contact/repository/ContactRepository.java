@@ -15,4 +15,8 @@ public class ContactRepository {
     public int insertSubscribe(HashMap<String,String> map) {
         return mapper.insertSubscribe(map);
     }
+
+    public int insertContact(HashMap<String,String> map) {
+        return mapper.insertContact(map);
+    }
 }

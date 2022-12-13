@@ -91,4 +91,11 @@
             (#{email})
     </insert>
 
+    <insert id="insertContact" parameterType="HashMap">
+        INSERT INTO contact
+            (name,email,phone,message)
+        VALUES
+            (#{name},#{email},#{phone},#{message})
+    </insert>
+
 </mapper>
