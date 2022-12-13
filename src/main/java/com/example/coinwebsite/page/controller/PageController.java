@@ -35,4 +35,5 @@ public class PageController {
     public String goHistory() {
         return "history";
     }
+
 }

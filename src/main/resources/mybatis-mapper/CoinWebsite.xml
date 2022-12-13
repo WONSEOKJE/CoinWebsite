@@ -48,18 +48,18 @@
             (#{email},#{coinId},#{name},#{price},#{amount},#{total})
     </insert>
 
-    <select id="selectCheckBalance" parameterType="String" resultType="HashMap">
-        SELECT
-            email,amount
+    <select id="selectCheckBalance" parameterType="String" resultType="Double">
+        SELECT (
+            IFNULL((SELECT SUM(amount) FROM payment WHERE email = #{email}),0) -
+            IFNULL((SELECT SUM(total) FROM buy WHERE email = #{email}),0)
+        ) rest
         FROM
-            payment
-        WHERE
-            email = #{email}
+            dual;
     </select>
 
-    <select id="selectHadBalance" parameterType="String" resultType="HashMap">
+    <select id="selectHadBalance" parameterType="String" resultType="Integer">
         SELECT
-            email,amount
+            IFNULL(SUM(amount),0)
         FROM
             payment
         WHERE
@@ -68,11 +68,27 @@
 
     <select id="selectHavingBalance" parameterType="String" resultType="HashMap">
         SELECT
-            a.email as email, b.email as email, a.amount as amount, b.total as total
+            coinId
+             ,IFNULL(SUM(amount),0) smount
         FROM
-            payment a, buy b
-        WHERE
-            a.email = #{email}, b.email = #{email}
+            buy
+        WHERE email =#{email}  GROUP BY coinId
     </select>
+
+    <select id="selectMoneyBalance" parameterType="String" resultType="Integer">
+        SELECT (
+            IFNULL((SELECT SUM(amount) FROM payment WHERE email = #{email}),0) -
+            IFNULL((SELECT SUM(total) FROM buy WHERE email = #{email}),0)
+        ) rest
+        FROM
+            dual;
+    </select>
+
+    <insert id="insertSubscribe" parameterType="HashMap">
+        INSERT INTO subscribe
+            (email)
+        VALUES
+            (#{email})
+    </insert>
 
 </mapper>

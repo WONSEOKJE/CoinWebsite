@@ -28,11 +28,19 @@ public class PayService {
         return pr.insertBuyCoin(map);
     }
 
-    public ArrayList<HashMap<String,String>> selectCheckBalance(String email) {
+    public double selectCheckBalance(String email) {
         return pr.selectCheckBalance(email);
     }
 
-    public ArrayList<HashMap<String,String>> selectHadBalance(String email) {
+    public int selectHadBalance(String email) {
         return pr.selectHadBalance(email);
+    }
+
+    public ArrayList<HashMap<String,Object>> selectHavingBalance(String email) {
+        return pr.selectHavingBalance(email);
+    }
+
+    public  int selectMoneyBalance(String email) {
+        return pr.selectMoneyBalance(email);
     }
 }

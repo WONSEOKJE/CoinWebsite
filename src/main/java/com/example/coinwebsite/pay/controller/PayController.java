@@ -49,34 +49,38 @@ public class PayController {
     }
 
     @GetMapping("/hadBalance")
-    public String selectHadBalance (HttpSession session) {
-        if (session.getAttribute("email") == null) {
-            return null;
+    public int selectHadBalance(HttpSession session) {
+        if (session.getAttribute("email") != null) {
+            String email = String.valueOf(session.getAttribute("email"));
+            return ps.selectHadBalance(email);
         }
+        return 0;
+    }
 
-        int money = 0;
-        ArrayList<HashMap<String,String>> amount = ps.selectCheckBalance(String.valueOf(session.getAttribute("email")));
-        System.out.println(amount);
-
-        for (HashMap<String, String> map : amount) {
-            money += Integer.parseInt(String.valueOf(map.get("amount")));
+    @GetMapping("/havingBalance")
+    public ArrayList<HashMap<String,Object>> selectHavingBalance(HttpSession session) {
+        if (session.getAttribute("email") != null) {
+            String email = String.valueOf(session.getAttribute("email"));
+            return ps.selectHavingBalance(email);
         }
-
-        return String.valueOf(money);
+        return null;
+    }
+    @GetMapping("/moneyBalance")
+    public int selectMoneyBalance(HttpSession session) {
+        if (session.getAttribute("email") != null) {
+            String email = String.valueOf(session.getAttribute("email"));
+            return ps.selectMoneyBalance(email);
+        }
+        return 0;
     }
     @GetMapping("/checkBalance")
     public String selectCheckBalance (@RequestParam double total, HttpSession session) {
         if (session.getAttribute("email") == null) {
             return "login";
         }
-
-        int money = 0;
-        ArrayList<HashMap<String,String>> amount = ps.selectCheckBalance(String.valueOf(session.getAttribute("email")));
-        System.out.println(amount);
-
-        for (HashMap<String, String> map : amount) {
-            money += Integer.parseInt(String.valueOf(map.get("amount")));
-        }
+        String email = String.valueOf(session.getAttribute("email"));
+        double money = ps.selectCheckBalance(email);
+        System.out.println("money = " + money);
 
         if (money > total) {
             return "can";

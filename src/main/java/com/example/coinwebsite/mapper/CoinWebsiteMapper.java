@@ -13,6 +13,9 @@ public interface CoinWebsiteMapper {
     public ArrayList<HashMap<String,Object>> selectPointList(String email);
     public ArrayList<HashMap<String,Object>> selectBuyList(String email);
     public int insertBuyCoin(HashMap<String,String> map);
-    public ArrayList<HashMap<String,String>> selectCheckBalance(String email);
-    public ArrayList<HashMap<String,String>> selectHadBalance(String email);
+    public double selectCheckBalance(String email);
+    public int selectHadBalance(String email);
+    public  ArrayList<HashMap<String,Object>> selectHavingBalance(String email);
+    public  int selectMoneyBalance(String email);
+    public int insertSubscirbe(HashMap<String,String> map);
 }
